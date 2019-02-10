@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- mapa -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Map demo</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
+    integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+    crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"
+    integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="
+    crossorigin=""></script>
+  <!--<style>#mapid { height: 800px; }</style>-->
+  <style type="text/css">
+    html,
+    body,
+    #mapid {
+      width: 100%;
+      height: calc(100% - 25.5px);
+      margin: 0px;
+      z-index: 1;
+    }
+  </style>
+  <script>
+    function init() {
+      document.getElementById("Invite").style.display = "none";
+      document.getElementById("UserMenu").style.display = "none";
+    }
+  </script>
+
+  <!-- app -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+    integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+  <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+</head>
+
+<body onload="init()">
+  <span>
+    <button id="button_search" data-toggle="modal" data-target="#filter">
+      <img src="img/lupa.png" style="width: 65px; height: 65px;" />
+    </button>
+    <div id="mapid"> </div>
+  </span>
+  </div>
+  <script>
+    var statesData = {
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {},
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              2.4242877960205074,
+              41.51943883926332
+            ],
+            [
+              2.442140579223633,
+              41.52946326017449
+            ],
+            [
+              2.4333000183105464,
+              41.53704480330066
+            ],
+            [
+              2.420940399169922,
+              41.53203337434982
+            ],
+            [
+              2.4242877960205074,
+              41.51943883926332
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {},
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              2.4332571029663086,
+              41.536980556668574
+            ],
+            [
+              2.4310684204101562,
+              41.54330854347447
+            ],
+            [
+              2.4315404891967773,
+              41.547419796942286
+            ],
+            [
+              2.427334785461426,
+              41.551081161971744
+            ],
+            [
+              2.4145030975341797,
+              41.54417578275795
+            ],
+            [
+              2.42098331451416,
+              41.53203337434982
+            ],
+            [
+              2.4332571029663086,
+              41.536980556668574
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {},
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              2.4454879760742183,
+              41.52663601664742
+            ],
+            [
+              2.455015182495117,
+              41.53710904986892
+            ],
+            [
+              2.452096939086914,
+              41.544111543209915
+            ],
+            [
+              2.447075843811035,
+              41.545974464191694
+            ],
+            [
+              2.4402523040771484,
+              41.5441436629919
+            ],
+            [
+              2.432742118835449,
+              41.53839396783225
+            ],
+            [
+              2.4334716796875,
+              41.53691630997267
+            ],
+            [
+              2.4454879760742183,
+              41.52663601664742
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {},
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              2.4327850341796875,
+              41.538490335650394
+            ],
+            [
+              2.4402952194213867,
+              41.544111543209915
+            ],
+            [
+              2.44295597076416,
+              41.54491453297331
+            ],
+            [
+              2.4393939971923824,
+              41.547419796942286
+            ],
+            [
+              2.438793182373047,
+              41.54825486336012
+            ],
+            [
+              2.440938949584961,
+              41.54886509738294
+            ],
+            [
+              2.433342933654785,
+              41.55297599753064
+            ],
+            [
+              2.427377700805664,
+              41.55104904563616
+            ],
+            [
+              2.431497573852539,
+              41.54738767878773
+            ],
+            [
+              2.4310684204101562,
+              41.54330854347447
+            ],
+            [
+              2.4327850341796875,
+              41.538490335650394
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {},
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              2.4334716796875,
+              41.55304022827121
+            ],
+            [
+              2.440981864929199,
+              41.54889721480352
+            ],
+            [
+              2.4486207962036133,
+              41.552397917993595
+            ],
+            [
+              2.4529123306274414,
+              41.54886509738294
+            ],
+            [
+              2.456817626953125,
+              41.552237339426966
+            ],
+            [
+              2.454757690429687,
+              41.55326503536054
+            ],
+            [
+              2.454242706298828,
+              41.55580208973765
+            ],
+            [
+              2.454757690429687,
+              41.55776101295973
+            ],
+            [
+              2.450723648071289,
+              41.55997677258171
+            ],
+            [
+              2.4485349655151367,
+              41.55914185758576
+            ],
+            [
+              2.4486207962036133,
+              41.55567363368158
+            ],
+            [
+              2.438793182373047,
+              41.55544883496916
+            ],
+            [
+              2.4334716796875,
+              41.55304022827121
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {},
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              2.438793182373047,
+              41.54825486336012
+            ],
+            [
+              2.439265251159668,
+              41.547451915080885
+            ],
+            [
+              2.4428701400756836,
+              41.54491453297331
+            ],
+            [
+              2.44694709777832,
+              41.546038701888925
+            ],
+            [
+              2.4521827697753906,
+              41.54417578275795
+            ],
+            [
+              2.455015182495117,
+              41.537237542814
+            ],
+            [
+              2.4569034576416016,
+              41.539486128029786
+            ],
+            [
+              2.4529552459716797,
+              41.54886509738294
+            ],
+            [
+              2.4486207962036133,
+              41.552397917993595
+            ],
+            [
+              2.4410247802734375,
+              41.54889721480352
+            ],
+            [
+              2.438793182373047,
+              41.54825486336012
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+};
+
+    var lat = 41.5421104;
+    var long = 2.4445;
+    var mymap = L.map('mapid').setView([lat, long], 13);
+
+    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+      //attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+      maxZoom: 18,
+      id: 'mapbox.streets',
+      accessToken: 'pk.eyJ1IjoiY2FwdGFpbnBvdGF0byIsImEiOiJjanJ4bG43NTgwbWdvNDNvNXFpN2hjZ2M1In0.0uLVSmTx4ogG0D5HCka0mQ'
+    }).addTo(mymap);
+    mymap.attributionControl.setPrefix('');
+
+    L.geoJson(statesData).addTo(mymap);
+    function style(feature) {
+      return {
+        fillColor: '#7194BC',
+        weight: 2,
+        opacity: 1,
+        color: 'white',
+        dashArray: '3',
+        fillOpacity: 0.01
+      };
+    }
+
+    L.geoJson(statesData, { style: style }).addTo(mymap);
+
+    //aquí
+    //var polygon = L.polygon([[41.54093,2.44223],[41.54296,2.44472],[41.54173,2.44931],[41.53937,2.44824],[41.53807,2.44175]]).addTo(mymap);
+
+    //------------------------markers------------------------
+    var antiguetats = L.icon({
+      iconUrl: 'img/markers/antiguetats.png',
+      iconSize: [36, 50], // size of the icon
+      iconAnchor: [22, 94], // point of the icon which will correspond to marker's location
+      shadowAnchor: [4, 62],  // the same for the shadow
+      popupAnchor: [-3, -76] // point from which the popup should open relative to the iconAnchor
+    });
+    var arbre = L.icon({
+      iconUrl: 'img/markers/arbre.png',
+      iconSize: [36, 50], // size of the icon
+      iconAnchor: [22, 94], // point of the icon which will correspond to marker's location
+      shadowAnchor: [4, 62],  // the same for the shadow
+      popupAnchor: [-3, -76] // point from which the popup should open relative to the iconAnchor
+    });
+    var edifici = L.icon({
+      iconUrl: 'img/markers/edifici.png',
+      iconSize: [36, 50], // size of the icon
+      iconAnchor: [22, 94], // point of the icon which will correspond to marker's location
+      shadowAnchor: [4, 62],  // the same for the shadow
+      popupAnchor: [-3, -76] // point from which the popup should open relative to the iconAnchor
+    });
+    var escultura = L.icon({
+      iconUrl: 'img/markers/escultura.png',
+      iconSize: [36, 50], // size of the icon
+      iconAnchor: [22, 94], // point of the icon which will correspond to marker's location
+      shadowAnchor: [4, 62],  // the same for the shadow
+      popupAnchor: [-3, -76] // point from which the popup should open relative to the iconAnchor
+    });
+    var esglesia = L.icon({
+      iconUrl: 'img/markers/esglesia.png',
+      iconSize: [36, 50], // size of the icon
+      iconAnchor: [22, 94], // point of the icon which will correspond to marker's location
+      shadowAnchor: [4, 62],  // the same for the shadow
+      popupAnchor: [-3, -76] // point from which the popup should open relative to the iconAnchor
+    });
+    var foto = L.icon({
+      iconUrl: 'img/markers/foto.png',
+      iconSize: [36, 50], // size of the icon
+      iconAnchor: [22, 94], // point of the icon which will correspond to marker's location
+      shadowAnchor: [4, 62],  // the same for the shadow
+      popupAnchor: [-3, -76] // point from which the popup should open relative to the iconAnchor
+    });
+    var histories = L.icon({
+      iconUrl: 'img/markers/histories.png',
+      iconSize: [36, 50], // size of the icon
+      iconAnchor: [22, 94], // point of the icon which will correspond to marker's location
+      shadowAnchor: [4, 62],  // the same for the shadow
+      popupAnchor: [-3, -76] // point from which the popup should open relative to the iconAnchor
+    });
+
+    var markers = [
+      { lat: 41.5270272, long: 2.4318997, icon: arbre , desc: "<b> Porta Laietana </b> <br> <br> Inaugurada en 1998, esta gran escultura de hierro, obra de Josep Maria Rovira Brull. Está situada en la Porta Laietana, en medio de una gran rotonda en la entrada de Mataró. Se ha convertido en el nuevo icono de la ciudad. Tiene una altura de 34 metros y pesa 38 toneladas. }<br> <br> <img src='portaLaietana.jpg' style='width: 90%; height: 80%; vertical-align: center' />"},
+      { lat: 41.5296178, long: 2.43434634501406, icon: histories, desc: "<b> Basílica de Santa María </b> <br> <br> Santa María es uno de los exponentes del Barroco catalán mejor conservados. La construcción, entre los siglos XVII y XVIII por encargo de la Venerable Congregación de Nuestra Señora de los Dolores, se completó con la decoración de frescos, óleos y elementos escultóricos diseñados por Antonio Viladomat a partir de 1722. <br> <br> <img src='santaMaria.jpg' style='width: 90%; height: 80%; vertical-align: center' />"},
+      { lat: 41.5407886, long: 2.44619817748447, icon: foto },
+      { lat: 41.5312131, long: 2.43399675003955, icon: esglesia},
+      { lat: 41.54015325, long:2.44529346885611, icon: escultura },
+      { lat: 41.5386719, long:2.4460523, icon: edifici },
+      { lat: 41.54233855, long:2.42548689435748, icon:arbre},
+      { lat: 41.5410262, long:2.4246568, icon:escultura},
+      { lat: 41.5379803, long:2.4302814, icon:foto}
+    ];
+
+    var customOptions =
+        {
+          'minWidth' : '100',
+          'minHeight' : '140',
+          'maxWidth' : '200',
+          'minHeight' : '260'
+        }
+
+    var markersDone = [];
+                markers.forEach(element => {
+                    var markerLocation = new L.LatLng(
+                        element.lat,
+                        element.long
+                    );
+                    L.marker(markerLocation, { icon: element.icon }).bindPopup(element.desc, customOptions).addTo(mymap);
+                    markersDone.push(markerLocation);
+                    console.log(markerLocation);
+                  });
+
+                  var TestMarkers = [];
+                    TestMarkers.push(markersDone[6]);
+                    TestMarkers.push(markersDone[7]);
+                    TestMarkers.push(markersDone[8]);
+                  var firstpolyline = new L.Polyline(TestMarkers, {
+                    color: 'red',
+                    weight: 3,
+                    opacity: 0.5,
+                    smoothFactor: 1
+                });
+                firstpolyline.addTo(mymap);
+                
+
+
+  /*
+    L.marker([41.5270272, 2.4318997], { icon: arbre, title: "test"}).addTo(mymap);
+    //Laietana
+    L.marker([41.5296178, 2.43434634501406], { icon: histories }).addTo(mymap);
+    //Santamaria
+    L.marker([41.5407886, 2.44619817748447], { icon: foto }).addTo(mymap);
+    //Torre LLauder
+    L.marker([41.5312131, 2.43399675003955], { icon: esglesia }).addTo(mymap);
+    //Museu Comarcal
+    L.marker([41.54015325, 2.44529346885611], { icon: escultura }).addTo(mymap);
+    //Carrer Barcelona
+    L.marker([41.5386719, 2.4460523], { icon: edifici }).addTo(mymap).bindPopup('<strong>Science Hall</strong><br>Where the GISC was born.');
+
+    function createMarker(){
+      var newLat = document.getElementById("newLat").value;
+      var newLong = document.getElementById("newLong").value;
+      console.log(newLat);
+      console.log(newLong);
+      L.marker([newLat, newLong], { icon: greenMarker }).addTo(mymap);
+    }
+    */
+    function createMarker(){
+      var newLat = document.getElementById("newLat").value;
+      var newLong = document.getElementById("newLong").value;
+      console.log(newLat);
+      console.log(newLong);
+      var markerLocation = new L.LatLng(
+                        newLat,
+                        newLong
+                    );
+      L.marker(markerLocation, { icon: escultura }).addTo(mymap);
+    }
+	
+	
+/*
+    //Laietana
+    var desc = "Inaugurada en 1998, esta gran escultura de hierro, obra de Josep Maria Rovira Brull. Está situada en la Porta Laietana, en medio de una gran rotonda en la entrada de Mataró. Se ha convertido en el nuevo icono de la ciudad. Tiene una altura de 34 metros y pesa 38 toneladas."
+    L.marker([41.5296178, 2.43434634501406], { icon: greenMarker }).bindPopup("<b> Porta Laietana </b> <br> <br>" + desc + "<br> <br> <img src='portaLaietana.jpg' style='width: 90%; height: 80%; vertical-align: center' />", customOptions).addTo(mymap);
+    //Santamaria
+    var desc = "Santa María es uno de los exponentes del Barroco catalán mejor conservados. La construcción, entre los siglos XVII y XVIII por encargo de la Venerable Congregación de Nuestra Señora de los Dolores, se completó con la decoración de frescos, óleos y elementos escultóricos diseñados por Antonio Viladomat a partir de 1722. "
+    L.marker([41.5407886, 2.44619817748447], { icon: greenMarker }).bindPopup("<b> Basílica de Santa María </b> <br> <br>" + desc + "<br> <br> <img src='santaMaria.jpg' style='width: 90%; height: 80%; vertical-align: center' />", customOptions).addTo(mymap);
+    //Torre LLauder
+    var desc = "Aquest important jaciment arqueològic, un dels més notables del país, situat al Clos Arqueològic, al barri de Pla d’En Boet de Mataró, declarat BCIN (Bé Cultural d’Interès Nacional), pren el nom de la casa pairal fortificada del segle XVII construïda al voltant d’una torre de defensa del segle XVI, el mas Llauder o de la Torre Llauder."
+    L.marker([41.5312131, 2.43399675003955], { icon: greenMarker }).bindPopup("<b> Torre Llauder </b> <br> <br>" + desc + "<br> <br> <img src='torreLlauder.png' style='width: 90%; height: 80%; vertical-align: center' />", customOptions).addTo(mymap);
+    //Museu Comarcal
+    var desc = "El Museu de Mataró és una institució patrimonial de la ciutat dedicada a la salvaguarda, estudi, conservació, recerca i difusió del patrimoni arqueològic, natural i moble vinculat a Mataró. Consta d’una seu central a Can Serra i té tres extensions: Ca l’Arenas, Centre d’Art del Museu de Mataró i el Clos arqueològic de Torre Llauder"
+    L.marker([41.54015325, 2.44529346885611], { icon: greenMarker }).bindPopup("<b> Museu Comarcal </b> <br> <br>" + desc + "<br> <br> <img src='museuComarcal.jpg' style='width: 90%; height: 80%; vertical-align: center' />", customOptions).addTo(mymap);
+    //Carrer Barcelona
+    var desc = "Mataró, estaba principalmente formada por campesinos y estaba bajo el dominio de los señores feudales del Castell de Mata, pero en 1424 pasó a ser calle de Barcelona por decreto del rey Alfonso el Magnánimo y rompió con el yugo del feudalismo."
+    L.marker([41.5386719, 2.4460523], { icon: greenMarker }).bindPopup("<b> Carrer de Barcelona </b> <br> <br>" + desc + "<br> <br> <img src='carrerBarcelona.jpg' style='width: 90%; height: 80%; vertical-align: center' />", customOptions).addTo(mymap);
+*/
+    function highlightFeature(e) {
+      var layer = e.target;
+
+      layer.setStyle({
+        weight: 3,
+        color: '#7194BC',
+        dashArray: '',
+        fillOpacity: 0.3
+      });
+
+      if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+        layer.bringToFront();
+      }
+    }
+
+    function resetHighlight(e) {
+      geojson.resetStyle(e.target);
+    }
+    function zoomToFeature(e) {
+      mymap.fitBounds(e.target.getBounds());
+    }
+
+    function onEachFeature(feature, layer) {
+      layer.on({
+        mouseover: highlightFeature,
+        mouseout: resetHighlight,
+        click: zoomToFeature
+      });
+    }
+
+    geojson = L.geoJson(statesData, {
+      style: style,
+      onEachFeature: onEachFeature
+    }).addTo(mymap);
+
+  </script>
+
+  <!-- CSS -->
+  <div id="Invite" style="width: 100%; height: calc(100% - 25.5px); background-color: white">
+    <div style="height: 40%"></div>
+    <div class="d-flex justify-content-center">
+      <div class="card" class="" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">Usuari Invitat</h5>
+          <h6 class="card-subtitle mb-2 text-muted">Estas com invitat</h6>
+          <p class="card-text">Fes log-in per poder gaudir de totes les funcions. Es gratis!</p>
+          <a href="#" class="card-link" data-toggle="modal" data-target="#myModal">LOG-IN</a>
+        </div>
+      </div>
+
+      <!-- Modal -->
+      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalCenterTitle">Registra't</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="form-group" style="padding-left: 30px; padding-right: 30px; padding-top: 10px">
+                <label for="usr">Nom:</label>
+                <input type="text" class="form-control" id="user">
+              </div>
+              <div class="form-group" style="padding-left: 30px; padding-right: 30px;">
+                <label for="pwd">Contrasenya:</label>
+                <input type="password" class="form-control" id="pass">
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" class="close" data-dismiss="modal" aria-label="Close"
+                onclick="closeRegister()">Donar'se d'alta</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="height: 30%"></div>
+  </div>
+
+  <div id="UserMenu" style="width: 100%; height: calc(100% - 25.5px);" style="background-color: white">
+    <div style="height: 5%"></div>
+    <div style="margin: 1%; justify-content: center; text-align: center; font-size: 200%">
+      <h id="Name" style="text-transform: uppercase"></h>
+
+      <p>Que vols fer?</p>
+    </div>
+    <ul class="list-group">
+      <li class="list-group-item">
+        <button type="button" class="btn btn-primary" style="height: 100%; width: 100%;">
+          <p></p>Progres <p></p>
+        </button>
+      </li>
+      <li class="list-group-item ">
+        <button type="button" class="btn btn-success" style="height: 100%; width: 100%;">
+          <p></p>Insignies<p></p>
+        </button>
+      </li>
+      <li class="list-group-item ">
+        <button type="button" class="btn btn-warning" style="height: 100%; width: 100%;" data-toggle="modal"
+          data-target="#UploadPoints">
+          <p></p>Crear Punt D'interés<p></p>
+        </button>
+      </li>
+      <li class="list-group-item ">
+        <button type="button" class="btn btn-info" style="height: 100%; width: 100%;">
+          <p></p> Crear Ruta<p></p>
+        </button>
+      </li>
+    </ul>
+    <div style="height: 10%"></div>
+  </div>
+
+  <div class="modal fade" id="UploadPoints" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalCenterTitle">Puja el teu punt d'interés</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group" style="margin-left: 30px; padding-right: 30px; padding-top: 10px">
+            <label for="title">Nom:</label>
+            <input type="text" class="form-control" id="NomLocalitzacio">
+          </div>
+          <div class="form-group" style="padding-left: 30px; padding-right: 30px;">
+            <label for="Category">Categoria:</label>
+            <p></p>
+            <select>
+              <option value="Edificis">Edificis</option>
+              <option value="Anècdotes">Anècdotes</option>
+              <option value="Estatues i Parcs">Estatues i Parcs</option>
+              <option value="Nuseus i Jaciments">Museus i Jaciments</option>
+            </select>
+          </div>
+          <div class="form-group" style="padding-left: 30px; padding-right: 30px;">
+            <label for="Coordenades">Coordenades:</label>
+            <p></p>
+            <input type="text" id="newLat" value="Latitut" width="40px" />
+            <input type="text" id="newLong" value="Longitud" width="40px" />
+          </div>
+          <div class="form-group" style="padding-left: 30px; padding-right: 30px;">
+            <label for="Historia">Historia:</label>
+            <p></p>
+            <textarea name="Text1" cols="40" rows="5"></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" class="close" data-dismiss="modal" aria-label="Close"
+            onclick="createMarker()">Donar'se d'alta</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+
+  <div class="modal fade" id="filter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalCenterTitle">FILTRE</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <h3>Temàtica</h3>
+          <ul class="list-group" style="height: 10%">
+            <li class="list-group-item ">
+              <button type="button" class="btn btn-primary" style="height: 100%; width: 100%;">
+                Edificis
+              </button>
+            </li>
+            <li class="list-group-item ">
+              <button type="button" class="btn btn-success" style="height: 100%; width: 100%;">
+                Anecdotes
+              </button>
+            </li>
+            <li class="list-group-item ">
+              <button type="button" class="btn btn-warning" style="height: 100%; width: 100%;">
+                Estatues i parcs
+              </button>
+            </li>
+            <li class="list-group-item ">
+              <button type="button" class="btn btn-info" style="height: 100%; width: 100%;">
+                Museus i jaciments
+              </button>
+            </li>
+          </ul>
+          <div>
+            <h3>
+              <p></p>Popularitat
+            </h3>
+            <fieldset class="rating">
+              <input type="radio" id="star5" name="rating" value="5" /><label class="full" for="star5"
+                title="Awesome - 5 stars"></label>
+              <input type="radio" id="star4half" name="rating" value="4 and a half" /><label class="half"
+                for="star4half" title="Pretty good - 4.5 stars"></label>
+              <input type="radio" id="star4" name="rating" value="4" /><label class="full" for="star4"
+                title="Pretty good - 4 stars"></label>
+              <input type="radio" id="star3half" name="rating" value="3 and a half" /><label class="half"
+                for="star3half" title="Meh - 3.5 stars"></label>
+              <input type="radio" id="star3" name="rating" value="3" /><label class="full" for="star3"
+                title="Meh - 3 stars"></label>
+              <input type="radio" id="star2half" name="rating" value="2 and a half" /><label class="half"
+                for="star2half" title="Kinda bad - 2.5 stars"></label>
+              <input type="radio" id="star2" name="rating" value="2" /><label class="full" for="star2"
+                title="Kinda bad - 2 stars"></label>
+              <input type="radio" id="star1half" name="rating" value="1 and a half" /><label class="half"
+                for="star1half" title="Meh - 1.5 stars"></label>
+              <input type="radio" id="star1" name="rating" value="1" /><label class="full" for="star1"
+                title=" - 1 star"></label>
+              <input type="radio" id="starhalf" name="rating" value="half" /><label class="half" for="starhalf"
+                title=" - 0.5 stars"></label>
+            </fieldset>
+          </div>
+          <br />
+          <h3 style="margin-top: 25px;">Época</h3>
+          <div class="input-group row">
+            <div class="col-xs" style="margin-left: 20px; margin-right: 10px; width: 80px;">
+              <p style="text-align: center; margin-bottom: 5px;">Desde</p>
+              <input type="text" class="form-control" maxlength="4" minlength="4" />
+            </div>
+            <div class="col-xs" style="margin-left: 10px; margin-right: 20px;width: 80px;">
+              <p style="text-align: center; margin-bottom: 5px;">Fins a</p>
+              <input type="text" class="form-control" maxlength="4" minlength="4" />
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" class="close" data-dismiss="modal"
+            aria-label="Close">Aplicar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid">
+    <div class="row" style="background-color:#6D6B6A;">
+      <div class="col-xs" style="padding: 0px; width: 50%" onclick="changeMenuUser()">
+        <button type="button" class="btn btn-block"
+          style="background-color: lightskyblue; border-top: 5px solid #6D6B6A; border-left: 5px solid #6D6B6A; border-bottom: 5px solid #6D6B6A; border-right: 2.5px solid #6D6B6A">
+          <img src="img/usuari2.png" style="height: 54px; width: 54px;" />
+        </button>
+      </div>
+
+      <div class="col-xs" style="padding: 0px; width: 50%" onclick="changeMenuMap()">
+        <button type="button" class="btn btn-block"
+          style="background-color: lightskyblue; border-top: 5px solid #6D6B6A; border-left: 2.5px solid #6D6B6A; border-bottom: 5px solid #6D6B6A; border-right: 5px solid #6D6B6A">
+          <img src="img/mapa.png" />
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    var showingMap = true;
+    var showingUserMenu = false;
+
+    function changeMenuUser() {
+      if (showingUserMenu == true) {
+        document.getElementById("mapid").hidden = true;
+        document.getElementById("UserMenu").style.display = "block";
+        document.getElementById("button_search").style.display = "none";
+      }
+      else if (showingUserMenu == false) {
+        if (showingMap) {
+          document.getElementById("mapid").hidden = true;
+          document.getElementById("Invite").style.display = "block";
+          showingMap = false;
+          document.getElementById("button_search").style.display = "none";
+        }
+      }
+    }
+
+    function changeMenuMap() {
+      if (showingUserMenu == true) {
+        document.getElementById("mapid").hidden = false;
+        document.getElementById("UserMenu").style.display = "none";
+        document.getElementById("button_search").style.display = "block";
+      }
+      else if (showingUserMenu == false) {
+        if (showingMap == false) {
+          document.getElementById("mapid").hidden = false;
+          document.getElementById("Invite").style.display = "none";
+          showingMap = true;
+          document.getElementById("button_search").style.display = "block";
+        }
+      }
+    }
+
+    function showRegister() {
+      document.getElementById("Register").style.display = "block";
+    }
+
+    function closeRegister() {
+      document.getElementById("Invite").style.display = "none";
+      document.getElementById("UserMenu").style.display = "block";
+      showingUserMenu = true;
+      var userName = document.getElementById("user").value;
+      document.getElementById("Name").innerHTML = userName;
+    }
+
+    function prueba() {
+      document.getElementById("Invite").style.display = "none";
+    }
+
+    $('input:text').click(
+    function(){
+        $(this).val('');
+    });
+  </script>
+  <style>
+    #button_search {
+      position: fixed;
+      z-index: 2;
+      top: 1%;
+      right: 2%;
+      background-color: white;
+      padding: 0px;
+
+      height: 65px;
+      width: 65px;
+
+      border-radius: 50%;
+      border: 0px solid;
+    }
+
+
+    #button_search:hover {
+      background-color: lightskyblue;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    /* The Modal (background) */
+    /*
+            .modal {
+                display: none; /* Hidden by default */
+    /*position: fixed; /* Stay in place */
+    /*  z-index: 1; /* Sit on top */
+    /*  padding-top: 100px; /* Location of the box */
+    /*  left: 0;
+                top: 0;
+                width: 100%; /* Full width */
+    /*   height: 100%; /* Full height */
+    /*   overflow: auto; /* Enable scroll if needed */
+    /*  background-color: rgb(0, 0, 0); /* Fallback color */
+    /*    background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+    /* }*/
+
+    /* Modal Content */
+    /* .modal-content {
+                background-color: #fefefe;
+                margin: auto;
+                padding: 20px;
+                border: 1px solid #888;
+                width: 80%;
+            }*/
+
+
+
+    /* The Close Button */
+    .close {
+      color: #aaaaaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+      color: #000;
+      text-decoration: none;
+      cursor: pointer;
+    }
+  </style>
+  <style>
+    @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
+
+
+
+    /****** Style Star Rating Widget *****/
+
+    .rating {
+      border: none;
+      float: left;
+    }
+
+    .rating>input {
+      display: none;
+    }
+
+    .rating>label:before {
+      margin: 5px;
+      font-size: 1.25em;
+      font-family: FontAwesome;
+      display: inline-block;
+      content: '\f005';
+    }
+
+    .rating>.half:before {
+      content: '\f089';
+      position: absolute;
+    }
+
+    .rating>label {
+      color: #ddd;
+      float: right;
+    }
+
+    /***** CSS Magic to Highlight Stars on Hover *****/
+
+    .rating>input:checked~label,
+    /* show gold star when clicked */
+    .rating:not(:checked)>label:hover,
+    /* hover current star */
+    .rating:not(:checked)>label:hover~label {
+      color: #ffd700;
+    }
+
+    /* hover previous stars in list */
+
+    .rating>input:checked+label:hover,
+    /* hover current star when changing rating */
+    .rating>input:checked~label:hover,
+    .rating>label:hover~input:checked~label,
+    /* lighten current selection */
+    .rating>input:checked~label:hover~label {
+      color: #ffed85;
+    }
+  </style>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+    integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+    integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+    crossorigin="anonymous"></script>
+
+</body>
+</html>
