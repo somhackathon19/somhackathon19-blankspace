@@ -1,0 +1,142 @@
+<!DOCTYPE HTML>
+<html >
+  <head>
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <title>OpenLayers Demo</title>
+    <style type="text/css">
+      html, body, #mapid {
+          width: 100%;
+          height: calc(100% - 25.5px);
+          margin: 0px;
+      }
+    </style>
+    <meta charset="UTF-8">
+    <script src="OpenLayers.js"></script>
+    <script>
+      function init() {
+        map = new OpenLayers.Map("mapid");
+        var mapnik         = new OpenLayers.Layer.OSM();
+        var fromProjection = new OpenLayers.Projection("EPSG:4326");   // Transform from WGS 1984
+        var toProjection   = new OpenLayers.Projection("EPSG:900913"); // to Spherical Mercator Projection
+        var position       = new OpenLayers.LonLat(13.41,52.52).transform( fromProjection, toProjection);
+        var zoom           = 15; 
+
+
+        map.addLayer(mapnik);
+        map.setCenter(position, zoom );
+
+        document.getElementById("Invite").style.display = "none";
+      }
+    </script>
+  </head>
+  <body onload="init();">
+    
+    
+    <div id="Invite" style="width: 100%; height: calc(100% - 25.5px); background-color: white">
+        <div style="height: 40%"></div>
+        <div class="d-flex justify-content-center"> 
+
+
+
+            <div class="card" class="" style="width: 18rem;">
+                <div class="card-body">
+                      <h5 class="card-title">Estas com invitat</h5>
+                      <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                      <p class="card-text">Ara mateix estas com invitat. Registret per poder disfrutar de totes les funcions. És gratis!</p>
+                      <a href="#" class="card-link" onclick="showRegister()">REGISTRATE</a>
+                </div>
+            </div>
+            
+
+            <!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" id="Register">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeRegister()"> 
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="form-group" style="padding-left: 30px; padding-right: 30px; padding-top: 10px">
+                <label for="usr" >Name:</label>
+                <input type="text" class="form-control" id="usr">
+              </div>
+              <div class="form-group" style="padding-left: 30px; padding-right: 30px;">
+                <label for="pwd">Password:</label>
+                <input type="password" class="form-control" id="pwd">
+              </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary">Donar-se d'alta</button>
+
+        </div>
+          </div>
+        </div>
+      </div>
+
+
+        </div> 
+        <div style="height: 30%"></div>  
+    </div>
+          
+
+
+    <div id="mapid"></div>
+
+
+    <div class="container-fluid">
+        <div class="row" style="background-color:#6D6B6A;">
+                <div class="col-sm" style="padding: 0px" onclick="changeMenuUser()">
+                    <button type="button" class="btn btn-block" style="background-color: lightskyblue; border-top: 5px solid #6D6B6A; border-left: 5px solid #6D6B6A; border-bottom: 5px solid #6D6B6A; border-right: 2.5px solid #6D6B6A">  <img src="usuari2.png" style="height: 54px; width: 54px;"></button>
+                </div>
+        
+                <div class="col-sm" style="padding: 0px" onclick="changeMenuMap()" >
+                    <button type="button" class="btn btn-block" style="background-color: lightskyblue; border-top: 5px solid #6D6B6A; border-left: 2.5px solid #6D6B6A; border-bottom: 5px solid #6D6B6A; border-right: 5px solid #6D6B6A">  <img src="mapa.png"></button>
+                </div>
+            </div>
+    </div>
+
+
+    
+
+
+
+
+    <script>
+        var showingMap = true;
+
+        function changeMenuUser(){  
+            if(showingMap == true){
+                document.getElementById("mapid").hidden = true; 
+                document.getElementById("Invite").style.display = "block";
+                showingMap = false; 
+            }
+        }
+
+        function changeMenuMap(){
+            if(showingMap == false){
+                document.getElementById("mapid").hidden = false; 
+                document.getElementById("Invite").style.display = "none";
+                showingMap = true; 
+            }
+        }
+
+        function showRegister(){
+            document.getElementById("Register").style.display = "block";
+        }
+
+        function closeRegister(){
+            document.getElementById("Register").style.display = "none";
+        }
+        
+    
+    
+    </script>
+   
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+  </body>
+</html>
